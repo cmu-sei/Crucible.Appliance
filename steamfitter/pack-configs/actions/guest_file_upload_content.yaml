@@ -1,0 +1,41 @@
+---
+  name: guest_file_upload_content
+  runner_type: python-script
+  description: "Upload a file to the guest."
+  enabled: true
+  entry_point: guest_file_upload_content.py
+  parameters:
+    vm_id:
+      type: string
+      description: "VM to modify."
+      required: true
+      position: 0
+    username:
+      type: string
+      description: "Username within the guest to perform the action."
+      required: true
+      position: 1
+    password:
+      type: string
+      description: "Password for the given username."
+      required: true
+      secret: true
+      position: 2
+    guest_file_path:
+      type: string
+      description: "Full file path in the guest to store the file."
+      required: true
+      position: 3
+    file_content:
+      type: string
+      description: "The content of the file to be uploaded"
+      required: false
+      position: 4
+    vsphere:
+      type: string
+      description: "Pre-configured vSphere connection details."
+      required: false
+      position: 5
+      default: ~
+
+

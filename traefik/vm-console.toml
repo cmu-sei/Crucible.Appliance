@@ -1,0 +1,49 @@
+{{ $domain := "crucible.ws"}}
+{{ $connectPrefix := "connect"}}
+{{ $alphabet := list "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" }}
+
+{{ range $letter := $alphabet }}
+  {{ range $j, $e := until 99 }}
+
+  [backends.backend{{$letter}}1{{$e}}]
+    [backends.backend{{$letter}}1{{$e}}.servers]
+      [backends.backend{{$letter}}1{{$e}}.servers.server0]
+        url = "https://{{$letter}}0{{$e}}.{{$domain}}"
+
+  [backends.backend{{$letter}}2{{$e}}]
+    [backends.backend{{$letter}}2{{$e}}.servers]
+      [backends.backend{{$letter}}2{{$e}}.servers.server0]
+        url = "https://{{$letter}}{{$e}}.{{$domain}}"
+
+  [frontends.frontend{{$letter}}1{{$e}}]
+    entryPoints = ["wss", "https"]
+    backend = "backend{{$letter}}1{{$e}}"
+    passHostHeader = true
+    [frontends.frontend{{$letter}}1{{$e}}.routes]
+      [frontends.frontend{{$letter}}1{{$e}}.routes.route0]
+        rule = "Host:{{$connectPrefix}}.{{$domain}};Query:vmhost={{$letter}}0{{$e}}.{{$domain}}"
+
+  [frontends.frontend{{$letter}}2{{$e}}]
+  entryPoints = ["wss", "https"]
+  backend = "backend{{$letter}}2{{$e}}"
+  passHostHeader = true
+  [frontends.frontend{{$letter}}2{{$e}}.routes]
+    [frontends.frontend{{$letter}}2{{$e}}.routes.route0]
+      rule = "Host:{{$connectPrefix}}.{{$domain}};Query:vmhost={{$letter}}{{$e}}.{{$domain}}"
+
+  {{ end }}
+{{ end }}
+
+[backends.backendesx04]
+  [backends.backendesx04.servers]
+    [backends.backendesx04.servers0]
+      url = https://esx-04.covert-cloud.com
+
+[frontends.frontendesx04]
+  entryPoints = ["wss", "https"]
+  backend = "backendesx04"
+  passHostHeader = true
+  [frontends.frontendesx04.routes]
+    [frontends.frontendesx04.routes.route0]
+      rule = "Host:{{$connectPrefix}}.{{$domain}};Query:vmhost=esx-04.covert-cloud.com"
+

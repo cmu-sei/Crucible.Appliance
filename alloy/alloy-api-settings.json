@@ -1,0 +1,74 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "Debug": {
+      "LogLevel": {
+        "Default": "Debug",
+        "Microsoft": "Debug",
+        "System": "Debug"
+      }
+    },
+    "Console": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Error",
+        "System": "Error"
+      }
+    }
+  },
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=alloy_api;Username=postgres;Password=postgres;"
+  },
+  "Database": {
+    "AutoMigrate": true,
+    "DevModeRecreate": false,
+    "Provider": "PostgreSQL"
+  },
+  "CorsPolicy": {
+    "Origins": [
+      "https://alloy.${DOMAIN}",
+      "http://cwd-moodle-1.cs2.cert.org",
+      "http://localhost:4403"
+    ],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": true
+  },
+  "Authorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "AuthorizationScope": "alloy-api player-api caster-api steamfitter-api vm-api",
+    "ClientId": "alloy-api-dev",
+    "ClientName": "Alloy API",
+    "ClientSecret": "",
+    "RequireHttpsMetaData": false
+  },
+  "ResourceOwnerAuthorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "ClientId": "alloy-admin",
+    "ClientSecret": "",
+    "UserName": "admin@${DOMAIN}",
+    "Password": "${ADMIN_PASS}",
+    "Scope": "alloy-api player-api caster-api steamfitter-api vm-api",
+    "TokenExpirationBufferSeconds": 900
+  },
+  "ClientSettings": {
+    "BackgroundTimerIntervalSeconds": 60,
+    "CasterCheckIntervalSeconds": 30,
+    "CasterPlanningMaxWaitMinutes": 15,
+    "CasterDeployMaxWaitMinutes": 120,
+    "CasterDestroyMaxWaitMinutes": 60,
+    "CasterDestroyRetryDelayMinutes": 1,
+    "ApiClientRetryIntervalSeconds": 10,
+    "ApiClientLaunchFailureMaxRetries": 10,
+    "ApiClientEndFailureMaxRetries": 10,
+    "urls": {
+      "playerApi": "https://player-api.${DOMAIN}/",
+      "casterApi": "https://caster-api.${DOMAIN}/",
+      "steamfitterApi": "https://steamfitter-api.${DOMAIN}/"
+    }
+  }
+}

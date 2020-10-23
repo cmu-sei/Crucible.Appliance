@@ -1,0 +1,145 @@
+version: '3.3'
+
+services:
+  traefik:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}traefik:v1.7.24
+    command: --web \
+      --docker \
+      --docker.swarmmode \
+      --docker.domain=traefik \
+      --docker.watch \
+      --logLevel=ERROR \
+      --traefikLog
+
+    networks:
+      traefik-net:
+        aliases:
+          - alloy.${DOMAIN}
+          - alloy-api.${DOMAIN}
+          - caster.${DOMAIN}
+          - caster-api.${DOMAIN}
+          - console.${DOMAIN}
+          - crucible.${DOMAIN}
+          - id.${DOMAIN}
+          - moodle.${DOMAIN}
+          - gitlab.${DOMAIN}
+          - osticket.${DOMAIN}
+          - player.${DOMAIN}
+          - player-api.${DOMAIN}
+          - steamfitter.${DOMAIN}
+          - steamfitter-api.${DOMAIN}
+          - stackstorm.${DOMAIN}
+          - vm.${DOMAIN}
+          - vm-api.${DOMAIN}
+    ports:
+      - '443:443'
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - sei-ca:/certificates
+      - sei-vcenter:/vcenter-certificates
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    deploy:
+      placement:
+        constraints: [node.role==manager]
+    configs:
+      - source: traefik
+        target: /traefik.toml
+      - source: vm-console
+        target: /vm-console.toml
+    secrets:
+      - anvil-private-key
+      - anvil-certificate
+  agent:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}portainer/agent
+    environment:
+      # REQUIRED: Should be equal to the service name prefixed by "tasks." when
+      # deployed inside an overlay network
+      AGENT_CLUSTER_ADDR: tasks.agent
+      # AGENT_PORT: 9001
+      # LOG_LEVEL: debug
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
+  portainer:
+    image: portainer/portainer:1.24.1
+    command: --admin-password-file='/run/secrets/portainer-admin-pass' --tlscacert='/run/secrets/anvil-ca'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'portainer-data:/data'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    networks:
+      - traefik-net
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.port=9000'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:${SWARM_SERVER}'
+    secrets:
+      - portainer-admin-pass
+      - anvil-ca
+
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true
+  traefik-net:
+    driver: overlay
+    external: true
+
+volumes:
+  portainer-data:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}portainer'
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+  sei-vcenter:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/vcenter/lin'
+
+configs:
+  traefik:
+    file: ./traefik-ssl.toml
+  vm-console:
+    file: ./vm-console.toml
+
+secrets:
+  portainer-admin-pass:
+    external: true
+  anvil-private-key:
+    external: true
+  anvil-certificate:
+    external: true
+  anvil-ca:
+    external: true

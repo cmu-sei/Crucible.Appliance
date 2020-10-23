@@ -1,0 +1,106 @@
+﻿{
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=steamfitter_api;Username=postgres;Password=postgres;"
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "Debug": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    },
+    "Console": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    }
+  },
+  "Database": {
+    "AutoMigrate": true,
+    "DevModeRecreate": false,
+    "Provider": "PostgreSQL"
+  },
+  "CorsPolicy": {
+    "Origins": ["https://steamfitter.${DOMAIN}"],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": true
+  },
+  "Authorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "AuthorizationScope": "steamfitter-api player-api vm-api",
+    "ClientId": "steamfitter-api-dev",
+    "ClientName": "Steamfitter API",
+    "ClientSecret": "",
+    "RequireHttpsMetaData": false
+  },
+  "ResourceOwnerAuthorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "ClientId": "steamfitter-admin",
+    "ClientSecret": "",
+    "UserName": "crucible.admin@${DOMAIN}",
+    "Password": "${ADMIN_PASS}",
+    "Scope": "steamfitter-api player-api vm-api",
+    "TokenExpirationBufferSeconds": 900
+  },
+  "ClaimsTransformation": {
+    "EnableCaching": true,
+    "CacheExpirationSeconds": 60
+  },
+  "ClientSettings": {
+    "urls": {
+      "playerApi": "https://player-api.${DOMAIN}/",
+      "vmApi": "https://vm-api.${DOMAIN}/"
+    }
+  },
+  "VmTaskProcessing": {
+    "ApiType": "st2",
+    "ApiUsername": "st2admin",
+    "ApiPassword": "${ADMIN_PASS}",
+    "ApiBaseUrl": "https://stackstorm.${DOMAIN}",
+    "VmListUpdateIntervalMinutes": 5,
+    "HealthCheckSeconds": 30,
+    "DispatchTaskProcessIntervalMilliseconds": 5000,
+    "DispatchTaskProcessMaxWaitSeconds": 120,
+    "ApiParameters": {
+      "clusters": "${STEAM_CLUSTER_MOID}"
+    }
+  },
+  "SeedData": {
+    "Permissions": [
+      {
+        "Id": "00000000-0000-0000-0000-000000000001",
+        "Key": "SystemAdmin",
+        "Value": "true",
+        "Description": "Has Full Rights.  Can do everything.",
+        "ReadOnly": true
+      },
+      {
+        "Id": "00000000-0000-0000-0000-000000000002",
+        "Key": "ContentDeveloper",
+        "Value": "true",
+        "Description": "Can create/edit/delete an Exercise/Directory/Workspace/File/Module",
+        "ReadOnly": true
+      }
+    ],
+    "Users": [
+      {
+        "id": "9fd3c38e-58b0-4af1-80d1-1895af91f1f9",
+        "name": "admin@${DOMAIN}"
+      }
+    ],
+    "UserPermissions": [
+      {
+        "UserId": "9fd3c38e-58b0-4af1-80d1-1895af91f1f9",
+        "PermissionId": "00000000-0000-0000-0000-000000000001"
+      }
+    ]
+  },
+  "Files": {
+    "LocalDirectory": "/tmp/"
+  }
+}

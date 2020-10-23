@@ -1,0 +1,23 @@
+filebeat.inputs:
+  - type: container
+    combine_partial: true
+    paths:
+      - "/var/lib/docker/containers/*/*.log"
+    containers.ids:
+      - "*"
+    multiline.pattern: '^[[:space:]]'
+    multiline.negate: false
+    multiline.match: after
+
+processors:
+  - add_docker_metadata:
+      host: "unix:///var/run/docker.sock"
+  - drop_event.when:
+      or:
+      - contains.container.name:  "filebeat"
+      - contains.container.name:  "elasticsearch"
+      - contains.container.name:  "kibana"
+      - contains.container.name:  "traefik"
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]

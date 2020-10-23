@@ -1,0 +1,2 @@
+[url "https://git-access-token:${GITLAB_SECRET}@gitlab.dev.anvil.cert.org/"]
+        insteadOf = https://gitlab.dev.anvil.cert.org/

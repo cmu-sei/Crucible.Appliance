@@ -1,0 +1,13 @@
+{
+  "ConsoleApiUrl": "https://vm-api.dev.anvil.cert.org/api/",
+  "OIDCSettings": {
+    "authority": "https://id.anvil.cert.org/",
+    "client_id": "vm-console-ui-dev",
+    "redirect_uri": "https://vm-console.dev.anvil.cert.org/auth-callback/",
+    "post_logout_redirect_uri": "https://vm-console.dev.anvil.cert.org/",
+    "response_type": "id_token token",
+    "scope": "openid profile email vm-api vm-console-api player-api",
+    "automaticSilentRenew": true,
+    "silent_redirect_uri": "https://vm-console.dev.anvil.cert.org/auth-callback-silent/"
+  }
+}

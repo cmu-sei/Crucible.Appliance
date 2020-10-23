@@ -1,0 +1,78 @@
+version: '3.6'
+
+services:
+  appliance:
+    image: 'crucible-appliance:latest'
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.entrypoints=http,https'
+        - 'traefik.web.port=80'
+        - 'traefik.web.frontend.rule=PathPrefix:/'
+    environment:
+      - DEBUG=@feathersjs*
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /deploy:/deploy
+      - sei-ca:/app/certs/sei-ca
+      - sei-vcenter:/app/certs/vcenter
+      - nfs:/app/nfs
+    configs:
+      - source: api-config
+        target: /app/config/default.json
+      - source: api-prod-config
+        target: /app/config/production.json
+      - source: web-settings
+        target: /app/dist/assets/config/settings.json
+      - source: web-commands
+        target: /app/dist/assets/config/commands.json
+      - source: nginx
+        target: /etc/nginx/conf.d/default.conf
+
+    networks:
+      - traefik-net
+      - utilities
+
+volumes:
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+  sei-vcenter:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/vcenter/lin'
+  nfs:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}'
+
+configs:
+  api-config:
+    file: ./api-config.json
+  api-prod-config:
+    file: ./api-prod-config.json
+  web-settings:
+    file: ./web-settings.json
+  web-commands:
+    file: ./web-commands.json
+  nginx:
+    file: ./default.conf
+
+networks:
+  traefik-net:
+    external: true
+  default:
+    driver: overlay
+  utilities:
+    external: true

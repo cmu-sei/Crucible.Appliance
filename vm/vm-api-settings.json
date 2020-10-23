@@ -1,0 +1,64 @@
+{
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=vm_api;Username=postgres;Password=postgres;"
+  },
+  "Database": {
+    "AutoMigrate": true,
+    "DevModeRecreate": false,
+    "Provider": "PostgreSQL"
+  },
+  "Authorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "AuthorizationScope": "vm-api player-api",
+    "ClientId": "vm-api-dev",
+    "ClientName": "VM API",
+    "ClientSecret": "",
+    "RequireHttpsMetaData": false
+  },
+  "IsoUpload": {
+    "BasePath": "/app/isos/player"
+  },
+  "ClientSettings": {
+    "urls": {
+      "playerApi": "https://player-api.${DOMAIN}"
+    }
+  },
+  "Vsphere": {
+    "Host": "${VSPHERE_SERVER}",
+    "Username": "${VSPHERE_USER}",
+    "Password": "${VSPHERE_PASSWORD}",
+    "DsName": "${VM_ISO_DATASTORE}",
+    "BaseFolder": "player",
+    "Timeout": 30,
+    "ApiUrl": "https://vm-api.${DOMAIN}",
+    "PlayerApiUrl": "https://player-api.${DOMAIN}"
+  },
+  "RewriteHost": {
+    "RewriteHost": false,
+    "RewriteHostUrl": "connect.${DOMAIN}",
+    "RewriteHostQueryParam": "vmhost"
+  },
+  "CorsPolicy": {
+    "Origins": [
+      "https://vm-console.${DOMAIN}",
+      "https://vm.${DOMAIN}",
+      "http://localhost:4305",
+      "http://localhost:4303",
+      "http://localhost:4403"
+    ],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": true
+  },
+  "IdentityClient": {
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
+    "ClientId": "player-vm-admin",
+    "Scope": "player-api vm-api",
+    "Username": "player.vm.admin@${DOMAIN}",
+    "Password": "${ADMIN_PASS}"
+  }
+}

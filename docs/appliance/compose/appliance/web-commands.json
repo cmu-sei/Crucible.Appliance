@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Generate Hosts File",
+    "cmd": "generate-hosts.sh"
+  },
+  {
+    "name": "Get vCenter Certificates",
+    "cmd": "generate-hosts.sh"
+  },
+  {
+    "name": "Restart Stacks",
+    "cmd": "generate-hosts.sh"
+  },
+  {
+    "name": "Restart Caster",
+    "cmd": "docker stack deploy -c /crucible/crucible-stack crucible_stack"
+  }
+]

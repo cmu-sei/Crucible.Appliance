@@ -1,0 +1,154 @@
+version: '3.6'
+
+services:
+  postgres:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    networks:
+      - utilities
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  mariadb:
+    image: mariadb:10.4.12-bionic
+    deploy:
+      replicas: 1
+    networks:
+      - utilities
+    environment:
+      - MYSQL_ROOT_PASSWORD=tartans@1
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  gitlab:
+    image: gitlab/gitlab-ce:13.2.3-ce.0
+    command: bash -c "update-ca-certificates && /assets/wrapper"
+    restart: always
+    hostname: 'gitlab.${DOMAIN}'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.${DOMAIN}';
+        gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_password');
+        gitlab_rails['omniauth_enabled'] = true;
+        gitlab_rails['omniauth_allow_single_sign_on'] = ['foundry'];
+        gitlab_rails['omniauth_block_auto_created_users'] = false;
+        gitlab_rails['omniauth_providers'] = 
+        [
+          {
+            'name'=>'openid_connect', 
+            'label'=>'foundry', 
+            'args'=>
+            {
+              'name'=>'foundry', 
+              'scope'=>['openid','profile','email'], 
+              'response_type'=>'code', 
+              'discovery'=> true, 
+              'issuer'=>'https://${ID_SERVER}', 
+              'client_options'=>
+              { 
+                'scheme' => 'http', 
+                'port' => 80, 
+                'host' => 'id.${DOMAIN}', 
+                'identifier'=>'anvil-gitlab-${ENVIRONMENT}', 
+                'redirect_uri'=>'https://gitlab.${DOMAIN}/users/auth/foundry/callback',
+                'secret'=>'${GITLAB_SECRET}'
+              }
+            }
+          }
+        ];
+        nginx['enabled'] = true
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['http2_enabled'] = false
+        nginx['proxy_set_headers'] = {
+          "Host" => "$$http_host",
+          "X-Real-IP" => "$$remote_addr",
+          "X-Forwarded-For" => "$$proxy_add_x_forwarded_for",
+          "X-Forwarded-Proto" => "https",
+          "X-Forwarded-Ssl" => "on"
+        }
+        prometheus['enable'] = false
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=gitlab'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:gitlab.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    volumes:
+      - gitlab-data:/var/opt/gitlab
+      - gitlab-logs:/var/log/gitlab
+      - gitlab-conf:/etc/gitlab
+      - sei-ca:/etc/gitlab/trusted-certs
+    secrets:
+      - gitlab_root_password
+    networks:
+      - traefik-net
+      - utilities
+
+volumes:
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+  postgres-data:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}postgres-data'
+  mariadb-data:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}mariadb-data'
+  gitlab-data:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}gitlab/data'
+  gitlab-logs:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}gitlab/logs'
+  gitlab-conf:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}gitlab/config'
+
+secrets:
+  gitlab_root_password:
+    external: true
+
+networks:
+  traefik-net:
+    external: true
+  default:
+    driver: overlay
+  utilities:
+    external: true
