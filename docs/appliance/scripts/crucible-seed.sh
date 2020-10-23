@@ -14,7 +14,7 @@ source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 # soff databases to import 
 soff caster player alloy steamfitter vm vm-console
 echo "Waiting 20 seconds for applications to shutdown"
-# sleep 20
+sleep 20
 # Replace domain
 source ${DEPLOY}/${SCRIPTS_PATH}/replace.sh dev.anvil.cert.org "${DOMAIN}" "${DEPLOY}/${EXPORTS_PATH}"
 source ${DEPLOY}/${SCRIPTS_PATH}/replace.sh staging.anvil.cert.org "${DOMAIN}" "${DEPLOY}/${EXPORTS_PATH}"

@@ -64,7 +64,7 @@ printf "$ADMIN_PASS" | docker secret create portainer-admin-pass -
 printf "$ADMIN_PASS" | docker secret create gitlab_root_password -
 son utilities
 sleep 20
-source ${DEPLOY}/${SCRIPTS_PATH}/crucible-seed.sh
+#source ${DEPLOY}/${SCRIPTS_PATH}/crucible-seed.sh
 
 # Deploy
 son
