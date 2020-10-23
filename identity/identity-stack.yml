@@ -1,0 +1,95 @@
+version: '3.6'
+
+services:
+  identity:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}identity:${IDENTITY_TAG}
+    command: bash -c "update-ca-certificates && dotnet IdentityServer.dll"
+    environment:
+      APPSETTINGS_PATH: /app/conf/identity.conf
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=identity'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:id.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      anvil:
+      traefik-net:
+      utilities:
+    volumes:
+      - sei-ca:/usr/local/share/ca-certificates
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: identity-seed
+        target: /app/conf/seed-data.json
+      - source: identity-conf
+        target: /app/conf/identity.conf
+
+  identity-ui:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}identity-ui:${IDENTITY_UI_TAG}
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=identity-ui'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:id.${DOMAIN};PathPrefix:/ui'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - traefik-net
+      - utilities
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: identity-ui-settings
+        target: /var/www/ui/assets/settings.env.json
+
+  appmail:
+    image: cmusei/appmailrelay:2.3.0
+    restart: unless-stopped
+    environment:
+      MAIL__HOST: ''
+      MAIL__USER: ''
+      MAIL__PASSWORD: ''
+      MAIL__PORT: 25
+      MAIL__SENDER: ''
+      RELAY__CLIENTKEYS__0: id.foundry.local#321ChangeMe!
+
+networks:
+  anvil:
+    driver: overlay
+  traefik-net:
+    external: true
+  utilities:
+    external: true
+
+volumes:
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+
+secrets:
+  sketch-identity-postgres-password:
+    external: true
+
+configs:
+  identity-ui-settings:
+    file: ./identity-ui-settings.json
+  identity-seed:
+    file: ./identity-seed.json
+  identity-conf:
+    file: ./identity.conf

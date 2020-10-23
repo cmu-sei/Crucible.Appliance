@@ -1,0 +1,19 @@
+{
+  "ApiUrl": "https://steamfitter-api.${DOMAIN}",
+  "VmApiUrl": "https://vm-api.${DOMAIN}/api",
+  "ApiPlayerUrl": "https://player-api.${DOMAIN}",
+  "OIDCSettings": {
+    "authority": "https://id.${DOMAIN}",
+    "client_id": "steamfitter-ui-dev",
+    "redirect_uri": "https://steamfitter.${DOMAIN}/auth-callback/",
+    "post_logout_redirect_uri": "https://steamfitter.${DOMAIN}",
+    "response_type": "id_token token",
+    "scope": "openid profile vm-api player-api steamfitter-api",
+    "automaticSilentRenew": true,
+    "silent_redirect_uri": "https://steamfitter.${DOMAIN}/auth-callback-silent/"
+  },
+  "AppTitle": "Steamfitter",
+  "AppTopBarHexColor": "#EF3A47",
+  "AppTopBarHexTextColor": "#FFFFFF",
+  "UseLocalAuthStorage": true
+}

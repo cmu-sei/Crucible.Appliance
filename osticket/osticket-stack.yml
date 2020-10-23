@@ -1,0 +1,56 @@
+version: "3.6"
+
+services:
+  osticket:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}osticket:${OSTICKET_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=osticket"
+        - "traefik.port=80"
+        - "traefik.docker.network=traefik-net"
+        - "traefik.frontend.rule=Host:osticket.${DOMAIN}"
+        - "traefik.frontend.entrypoints=http,https"
+    networks:
+      - utilities
+      - traefik-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      - MYSQL_HOST=mariadb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=tartans@1
+      - ADMIN_PASSWORD=jVo1y8UaOFv3sf#Qev1P
+      - INSTALL_SECRET=D*@J2Ndx%u9Qo9ihStkY
+      - INSTALL_URL=https://osticket.${DOMAIN}/
+    volumes:
+      - ost-plugins:/data/upload/include/plugins
+      - ost-logs:/var/log/nginx
+      - ost-cert:/etc/ssl/certs
+
+networks:
+  utilities:
+    external: true
+  traefik-net:
+    external: true
+
+volumes:
+  ost-plugins:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER},nolock,soft,rw"
+      device: ":${NFS_BASE_PATH}osticket/plugins"
+  ost-logs:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER},nolock,soft,rw"
+      device: ":${NFS_BASE_PATH}osticket/logs"
+  ost-cert:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER},nolock,soft,rw"
+      device: ":${NFS_BASE_PATH}certificates/sei-ca"

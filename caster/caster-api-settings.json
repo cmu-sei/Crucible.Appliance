@@ -1,0 +1,91 @@
+{
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=caster_api;Username=postgres;Password=postgres;"
+  },
+  "Authorization": {
+    "Authority": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "AuthorizationScope": "caster-api",
+    "ClientId": "caster-api-dev",
+    "ClientName": "Caster API",
+    "ClientSecret": "",
+    "RequireHttpsMetaData": false
+  },
+  "Terraform": {
+    "BinaryPath": "/terraform",
+    "RootWorkingDirectory": "/terraform/root",
+    "DefaultVersion": "${TERRAFORM_DEFAULT}",
+    "GitlabApiUrl": "https://gitlab.${DOMAIN}/api/v4/",
+    "GitlabToken": "${GITLAB_SECRET}",
+    "GitlabGroupId": "${GITLAB_GROUP_ID}"
+  },
+  "Client": {
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
+    "ClientId": "caster-admin",
+    "Scope": "player-api vm-api",
+    "UserName": "caster.admin.user@${DOMAIN}",
+    "Password": "${ADMIN_PASS}"
+  },
+  "CorsPolicy": {
+    "Origins": [
+      "https://caster.${DOMAIN}",
+      "http://localhost:4310",
+      "http://localhost:4403"
+    ],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": true
+  },
+  "Player": {
+    "VmApiUrl": "https://vm-api.${DOMAIN}",
+    "VmConsoleUrl": "https://vm-console.${DOMAIN}/vm/{id}/console"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Trace",
+      "System": "Debug",
+      "Microsoft": "Debug"
+    }
+  },
+  "SeedData": {
+    "Permissions": [
+      {
+        "Id": "00000000-0000-0000-0000-000000000001",
+        "Key": "SystemAdmin",
+        "Value": "true",
+        "Description": "Has Full Rights.  Can do everything.",
+        "ReadOnly": true
+      },
+      {
+        "Id": "00000000-0000-0000-0000-000000000002",
+        "Key": "ContentDeveloper",
+        "Value": "true",
+        "Description": "Can create/edit/delete an Exercise/Directory/Workspace/File/Module",
+        "ReadOnly": true
+      }
+    ],
+    "Users": [
+      {
+        "id": "9fd3c38e-58b0-4af1-80d1-1895af91f1f9",
+        "name": "admin@${DOMAIN}"
+      },
+      {
+        "id": "32c11441-7eec-47eb-a915-607c4f2529f4",
+        "name": "crucible.admin@${DOMAIN}"
+      }
+    ],
+    "UserPermissions": [
+      {
+        "UserId": "9fd3c38e-58b0-4af1-80d1-1895af91f1f9",
+        "PermissionId": "00000000-0000-0000-0000-000000000001"
+      },
+      {
+        "UserId": "32c11441-7eec-47eb-a915-607c4f2529f4",
+        "PermissionId": "00000000-0000-0000-0000-000000000001"
+      }
+    ]
+  }
+}

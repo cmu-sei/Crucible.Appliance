@@ -1,0 +1,8 @@
+{
+    "view": [{
+      "name": "Sample Exercise",
+      "teams": [],
+      "templates": ["win10.user.temp"],
+      "cluster": "crucible-dev"
+    }]
+  }

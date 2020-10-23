@@ -1,0 +1,6 @@
+{
+  "ApiUrl": "/api",
+  "socketUrl": "/",
+  "commandsPath": "assets/config/commands.json",
+  "commandsBasePath": "/deploy/docs/appliance/scripts"
+}

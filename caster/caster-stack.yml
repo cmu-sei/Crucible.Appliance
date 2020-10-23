@@ -1,0 +1,83 @@
+version: '3.6'
+
+services:
+  caster-api:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}caster-api:${CASTER_API_TAG}
+    command: bash -c "update-ca-certificates && dotnet Caster.Api.dll"
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=caster-api'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:caster-api.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - utilities
+      - traefik-net
+    volumes:
+      - terraform:/terraform
+      - sei-ca:/usr/local/share/ca-certificates
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: caster-api-settings
+        target: /app/appsettings.Production.json
+      - source: git-config-settings
+        target: /etc/gitconfig
+    environment:
+      - VSPHERE_SERVER=${VSPHERE_SERVER}
+      - VSPHERE_USER=${VSPHERE_USER}
+      - VSPHERE_PASSWORD=${VSPHERE_PASSWORD}
+      - VSPHERE_ALLOW_UNVERIFIED_SSL=true
+
+  caster-ui:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}caster-ui:${CASTER_UI_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=caster-ui'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:caster.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - traefik-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: caster-ui-settings
+        target: /usr/share/nginx/html/assets/config/settings.env.json
+volumes:
+  terraform:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}terraform'
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+
+networks:
+  utilities:
+    external: true
+  traefik-net:
+    external: true
+
+configs:
+  caster-api-settings:
+    file: ./caster-api-settings.json
+  caster-ui-settings:
+    file: ./caster-ui-settings.json
+  git-config-settings:
+    file: ./caster.gitconfig

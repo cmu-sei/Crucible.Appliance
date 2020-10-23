@@ -1,0 +1,77 @@
+[global]
+APPLIANCE_DEV=false
+# Domain of the appliance can only be changed once.
+DOMAIN=crucible.io
+# Url of docker registry leave blank for public registry. 
+REGISTRY_URL=
+# Namespace of docker registry `cmusei/` for public registry, forward slash (/) required.
+NAMESPACE=cmusei/
+# Repo of docker registry sei internal leave blank for public registry
+REPO=
+# FQDN of vcenter server
+VSPHERE_SERVER=<YOUR-VSPHERE-SERVER>
+# vCenter User
+VSPHERE_USER=<YOUR-VSPHERE-USER>
+# vShpere Password
+VSPHERE_PASSWORD=<YOUR-VSPHERE-PASSWORD>
+# vsphere cluster used for deployments, limited to one cluster.
+VSPHERE_CLUSTER=<YOUR-VSPHERE-CLUSTER>
+# Used for some client IDs leave at `dev`
+ENVIRONMENT=dev
+# Leave blank this will be updated with the configure.sh script
+GITLAB_SECRET=
+# Password for everything. gitlab, portainer, identity admin, pre-seed users in all apps. 
+# CAN ONLY BE CHANGED BEFORE CONFIGURED
+ADMIN_PASS=321ChangeMe!
+# Don't Touch
+NFS_BASE_PATH=/mnt/data/
+# Don't Touch
+NFS_SERVER=localhost
+# MAKE SURE THIS MATCHES DOMAIN VARIABLE
+ID_SERVER=id.crucible.io
+# MAKE SURE THIS MATCHES DOMAIN VARIABLE
+SWARM_SERVER=swarm.crucible.io
+# Don't Touch 
+ENABLE_SSL=true
+
+[identity]
+IDENTITY_TAG=1.3.6
+IDENTITY_UI_TAG=1.3.6
+[osticket]
+OSTICKET_TAG=latest
+
+[moodle]
+MOODLE_TAG=latest
+
+[alloy]
+ALLOY_API_TAG=2.0.3
+ALLOY_UI_TAG=2.1.0
+
+[caster]
+CASTER_API_TAG=2.1
+CASTER_UI_TAG=2.2
+TERRAFORM_VERSIONS=0.12.29,0.13.1,0.13.2,0.13.2
+TERRAFORM_DEFAULT=0.13.2
+# leave blank this will be updated with the configure.sh script
+GITLAB_GROUP_ID=
+MODULES_GROUP=caster-modules
+
+[player]
+PLAYER_API_TAG=2.0
+PLAYER_UI_TAG=2.0
+
+[steamfitter]
+STEAM_API_TAG=2.1.0
+STEAM_UI_TAG=2.0
+# Leave blank, This value will be filled in by the configure script base on the VSPHERE_CLUSTER variable
+STEAM_CLUSTER_MOID=
+
+[vm]
+VM_API_TAG=2.2
+VM_UI_TAG=2.1
+VM_ISO_DATSTORE=iso
+
+[vm-console]
+VM_CONSOLE_API_TAG=2.1
+VM_CONSOLE_UI_TAG=2.1
+

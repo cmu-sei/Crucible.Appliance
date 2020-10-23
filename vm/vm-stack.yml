@@ -1,0 +1,110 @@
+version: '3.6'
+
+services:
+  vm-api:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}vm-api:${VM_API_TAG}
+    entrypoint: bash -c "update-ca-certificates && dotnet Player.Vm.Api.dll"
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=vm-api'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:vm-api.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - utilities
+      - traefik-net
+    volumes:
+      - sei-ca:/usr/local/share/ca-certificates
+      - iso-store:/app/isos/player
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: vm-api-settings
+        target: /app/appsettings.Production.json
+
+  vm-ui:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}vm-ui:${VM_UI_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=vm-ui'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:vm.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - traefik-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: vm-ui-settings
+        target: /usr/share/nginx/html/assets/config/settings.env.json
+
+  vm-console-ui:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}vm-console-ui:${VM_CONSOLE_UI_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=vm-console-ui'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:vm-console.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=https'
+    networks:
+      - traefik-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: vm-console-ui-settings
+        target: /usr/share/nginx/html/assets/config/settings.env.json
+
+networks:
+  utilities:
+    external: true
+  traefik-net:
+    external: true
+
+volumes:
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+  iso-store:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}iso/player'
+  vcenter-certs:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/vcenter/lin'
+
+configs:
+  vm-api-settings:
+    file: ./vm-api-settings.json
+  vm-ui-settings:
+    file: ./vm-ui-settings.json
+  vm-console-ui-settings:
+    file: ./vm-console-ui-settings.json
+
+secrets:
+  anvil-private-key:
+    external: true
+  anvil-certificate:
+    external: true

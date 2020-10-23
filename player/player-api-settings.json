@@ -1,0 +1,62 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Debug",
+      "Microsoft": "Debug"
+    }
+  },
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=player_api;Username=postgres;Password=postgres;"
+  },
+  "Database": {
+    "AutoMigrate": true,
+    "DevModeRecreate": false,
+    "Provider": "PostgreSQL"
+  },
+  "Authorization": {
+    "Authority": "https://id.anvil.cert.org",
+    "AuthorizationUrl": "https://id.anvil.cert.org/connect/authorize",
+    "AuthorizationScope": "player-api",
+    "ClientId": "player-api-dev",
+    "ClientName": "Player API",
+    "ClientSecret": "",
+    "RequireHttpsMetaData": false
+  },
+  "CorsPolicy": {
+    "Origins": [
+      "https://player.${DOMAIN}",
+      "https://vm.${DOMAIN}",
+      "https://osticket.${DOMAIN}",
+      "http://localhost:4301",
+      "http://localhost:4403"
+    ],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": true
+  },
+  "SeedData": {
+    "Permissions": [
+      {
+        "Key": "SystemAdmin",
+        "Value": "true",
+        "Description": "Can do anything",
+        "ReadOnly": true
+      },
+      {
+        "Key": "ViewAdmin",
+        "Value": "true",
+        "Description": "Can edit an Exercise, Add/Remove Teams/Members, etc",
+        "ReadOnly": true
+      }
+    ],
+    "SystemAdminIds": [
+      "9fd3c38e-58b0-4af1-80d1-1895af91f1f9",
+      "6b10a070-e807-449b-b8d4-b276ae4c2d42",
+      "c4c631ca-3dbd-4d99-9c19-a8c3f7e5e493"
+    ]
+  }
+}

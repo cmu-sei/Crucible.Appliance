@@ -1,0 +1,69 @@
+version: '3.6'
+
+services:
+  alloy-api:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}alloy-api:${ALLOY_API_TAG}
+    entrypoint: bash -c "update-ca-certificates && dotnet Alloy.Api.dll"
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=alloy-api'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:alloy-api.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - utilities
+      - traefik-net
+    volumes:
+      - sei-ca:/usr/local/share/ca-certificates
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: alloy-api-settings
+        target: /app/appsettings.Production.json
+
+  alloy-ui:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}alloy-ui:${ALLOY_UI_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.backend=alloy-ui'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:alloy.$DOMAIN'
+        - 'traefik.frontend.entrypoints=http,https'
+    networks:
+      - traefik-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
+    configs:
+      - source: alloy-ui-settings
+        target: /usr/share/nginx/html/assets/config/settings.env.json
+
+volumes:
+  sei-ca:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}certificates/sei-ca'
+
+networks:
+  utilities:
+    external: true
+  traefik-net:
+    external: true
+
+configs:
+  alloy-api-settings:
+    file: ./alloy-api-settings.json
+  alloy-ui-settings:
+    file: ./alloy-ui-settings.json

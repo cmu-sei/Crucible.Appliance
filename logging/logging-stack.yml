@@ -1,0 +1,85 @@
+version: "3.6"
+
+services:
+  filebeat-startup:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}elastic/filebeat:7.6.2
+    command: 'setup -E setup.kibana.host=kibana:5601 -E output.elasticsearch.hosts=["elasticsearch:9200"]'
+    deploy:
+      mode: global
+      restart_policy:
+        delay: 30s
+        max_attempts: 5
+        window: 120s
+    networks:
+      - utilities
+      - traefik-net
+
+  filebeat:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}elastic/filebeat:7.6.2
+    user: root
+    deploy:
+      mode: global
+    networks:
+      - utilities
+      - traefik-net
+    environment:
+      - strict.perms=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    configs:
+      - source: filebeat
+        target: /usr/share/filebeat/filebeat.yml
+      - source: filebeat
+        target: /etc/filebeat/filebeat.yml
+
+  elasticsearch:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}elasticsearch:7.6.2
+    hostname: elasticsearch
+    volumes:
+     - elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - traefik-net
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=elasticsearch"
+        - "traefik.port=9200"
+        - "traefik.docker.network=traefik-net"
+        - "traefik.frontend.rule=Host:elasticsearch.${DOMAIN}"
+        - "traefik.frontend.entrypoints=http,https"
+    environment:
+      - discovery.type=single-node
+
+  kibana:
+    image: ${REGISTRY_URL}${REMOTE_NAMESPACE}kibana:7.6.2
+    hostname: kibana
+    networks:
+      - traefik-net
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=kibana"
+        - "traefik.port=5601"
+        - "traefik.docker.network=traefik-net"
+        - "traefik.frontend.rule=Host:kibana.${DOMAIN}"
+        - "traefik.frontend.entrypoints=http,https"
+
+configs:
+  filebeat:
+    file: ./filebeat.yml
+
+volumes:
+  elasticsearch:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER},nolock,soft,rw"
+      device: ":${NFS_BASE_PATH}elasticsearch"
+
+networks:
+  traefik-net:
+    external: true
+  utilities:
+    external: true

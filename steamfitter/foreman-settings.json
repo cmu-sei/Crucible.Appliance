@@ -1,0 +1,48 @@
+{
+  "ConnectionStrings": {
+    "PostgreSQL": "Server=postgres;Port=5432;Database=foreman;Username=postgres;Password=postgres;Keepalive=1;"
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "Debug": {
+      "LogLevel": {
+        "Default": "Trace"
+      }
+    },
+    "Console": {
+      "LogLevel": {
+        "Default": "Trace"
+      }
+    }
+  },
+  "Database": {
+    "AutoMigrate": true,
+    "DevModeRecreate": false,
+    "Provider": "PostgreSQL"
+  },
+  "CorsPolicy": {
+    "Origins": ["https://foreman.dev.anvil.cert.org"],
+    "Methods": [],
+    "Headers": [],
+    "AllowAnyOrigin": false,
+    "AllowAnyMethod": true,
+    "AllowAnyHeader": true,
+    "SupportsCredentials": false
+  },
+  "Authorization": {
+    "Authority": "https://id.anvil.cert.org",
+    "AuthorizationUrl": "https://id.anvil.cert.org/connect/authorize",
+    "AuthorizationScope": "steamfitter-api",
+    "ClientId": "foreman-api",
+    "ClientName": "Foreman API"
+  },
+  "ResourceOwnerAuthorization": {
+    "Authority": "https://id.anvil.cert.org",
+    "ClientId": "foreman-api-svc",
+    "ClientSecret": "8b54d96b14e64a89b557eb992e2cb826",
+    "UserName": "administrator@this.ws",
+    "Password": "ChangeMe321!",
+    "Scope": "steamfitter-api player-api vm-api"
+  },
+  "AllowedHosts": "*"
+}

@@ -1,0 +1,422 @@
+{
+  "Users": [
+    {
+      "Username": "admin@${DOMAIN}",
+      "Password": "${ADMIN_PASS}",
+      "GlobalId": "9fd3c38e-58b0-4af1-80d1-1895af91f1f9"
+    },
+    {
+      "Username": "andrew.carnegie@${DOMAIN}",
+      "Password": "${ADMIN_PASS}"
+    },
+    {
+      "Username": "andrew.mellon@${DOMAIN}",
+      "Password": "${ADMIN_PASS}"
+    },
+    {
+      "Username": "richard.mellon@${DOMAIN}",
+      "Password": "${ADMIN_PASS}"
+    },
+    {
+      "Username": "caster.admin.user@${DOMAIN}",
+      "Password": "${ADMIN_PASS}",
+      "GlobalId": "c4c631ca-3dbd-4d99-9c19-a8c3f7e5e493"
+    },
+    {
+      "Username": "player.vm.admin@${DOMAIN}",
+      "Password": "${ADMIN_PASS}",
+      "GlobalId": "6b10a070-e807-449b-b8d4-b276ae4c2d42"
+    },
+    {
+      "Username": "crucible.admin@${DOMAIN}",
+      "Password": "${ADMIN_PASS}",
+      "GlobalId": "32c11441-7eec-47eb-a915-607c4f2529f4"
+    }
+  ],
+  "DefaultClientFlags": "AllowRememberConsent, AlwaysIncludeUserClaimsInIdToken, UpdateAccessTokenClaimsOnRefresh, EnableLocalLogin",
+  "Clients": [
+    {
+      "Name": "alloy-api-dev",
+      "DisplayName": "Alloy API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser",
+      "SeedGrant": "implicit",
+      "SeedScopes": "alloy-api player-api caster-api steamfitter-api vm-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://alloy-api.${DOMAIN}"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://alloy-api.${DOMAIN}/swagger/oauth2-redirect.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://alloy-api.${DOMAIN}/swagger"
+        }
+      ]
+    },
+    {
+      "Name": "alloy-admin",
+      "DisplayName": "Alloy Admin",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaportal",
+      "SeedGrant": "password",
+      "SeedScopes": "openid alloy-api player-api caster-api steamfitter-api vm-api",
+      "Urls": [{ "Type": "CORSUri", "Value": "https://alloy-api.${DOMAIN}" }]
+    },
+    {
+      "Name": "alloy-ui-dev",
+      "DisplayName": "Alloy UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile alloy-api player-api caster-api steamfitter-api vm-api",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://alloy.${DOMAIN}/" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://alloy.${DOMAIN}/auth-callback"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://alloy.${DOMAIN}/auth-callback-silent"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://alloy.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://alloy.${DOMAIN}" }
+      ]
+    },
+    {
+      "Name": "caster-api-dev",
+      "DisplayName": "Caster API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid caster-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://caster-api.${DOMAIN}"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://caster-api.${DOMAIN}/api/oauth2-redirect.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://caster-api.${DOMAIN}/api"
+        }
+      ]
+    },
+    {
+      "Name": "caster-ui-dev",
+      "DisplayName": "Caster UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile email caster-api",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://caster.${DOMAIN}/" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://caster.${DOMAIN}/auth-callback/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://caster.${DOMAIN}/auth-callback-silent/"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://caster.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://caster.${DOMAIN}" }
+      ]
+    },
+    {
+      "Name": "caster-admin",
+      "DisplayName": "Caster Admin Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaportal, Published",
+      "SeedGrant": "password",
+      "SeedScopes": "openid player-api vm-api",
+      "Urls": [{ "Type": "CORSUri", "Value": "https://caster-api.${DOMAIN}" }]
+    },
+    {
+      "Name": "player-api-dev",
+      "DisplayName": "Player API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid player-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://player-api.${DOMAIN}"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://player-api.${DOMAIN}/swagger/oauth2-redirect.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://player-api.${DOMAIN}/swagger"
+        }
+      ]
+    },
+    {
+      "Name": "player-ui-dev",
+      "DisplayName": "Player UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile email player-api",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://player.${DOMAIN}/" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://player.${DOMAIN}/auth-callback/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://player.${DOMAIN}/auth-callback-silent/"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://player.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://player.${DOMAIN}" }
+      ]
+    },
+    {
+      "Name": "player-vm-admin",
+      "DisplayName": "Player VM Admin Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaportal, Published",
+      "SeedGrant": "password",
+      "SeedScopes": "openid player-api vm-api",
+      "Urls": [{ "Type": "CORSUri", "Value": "https://vm-api.${DOMAIN}" }]
+    },
+    {
+      "Name": "steamfitter-admin",
+      "DisplayName": "Steamfitter Admin",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaportal, Published",
+      "SeedGrant": "password",
+      "SeedScopes": "openid steamfitter-api player-api vm-api",
+      "Urls": [{ "Type": "CORSUri", "Value": "https://steamfitter.${DOMAIN}" }]
+    },
+    {
+      "Name": "steamfitter-api-dev",
+      "DisplayName": "Steamfitter API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid player-api steamfitter-api vm-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://steamfitter-api.${DOMAIN}"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://steamfitter-api.${DOMAIN}/swagger/oauth2-redirect.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://steamfitter-api.${DOMAIN}/swagger"
+        }
+      ]
+    },
+    {
+      "Name": "steamfitter-ui-dev",
+      "DisplayName": "Steamfitter UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile player-api steamfitter-api vm-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://steamfitter.${DOMAIN}/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://steamfitter.${DOMAIN}/auth-callback/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://steamfitter.${DOMAIN}/auth-callback-silent/"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://steamfitter.${DOMAIN}/"
+        },
+        {
+          "Type": "CORSUri",
+          "Value": "https://steamfitter.${DOMAIN}"
+        }
+      ]
+    },
+    {
+      "Name": "vm-api-dev",
+      "DisplayName": "VM API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid player-api vm-api",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://vm-api.${DOMAIN}" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm-api.${DOMAIN}/swagger/oauth2-redirect.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://vm-api.${DOMAIN}/swagger"
+        }
+      ]
+    },
+    {
+      "Name": "vm-ui-dev",
+      "DisplayName": "VM UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile email player-api vm-api",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://vm.${DOMAIN}/" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm.${DOMAIN}/auth-callback/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm.${DOMAIN}/auth-callback-silent/"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://vm.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://vm.${DOMAIN}" }
+      ]
+    },
+    {
+      "Name": "vm-console-api-dev",
+      "DisplayName": "VM Console API Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid player-api vm-api vm-console-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://vm-console-api.${DOMAIN}"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm-console-api.${DOMAIN}/swagger/o2c.html"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://vm-console-api.${DOMAIN}/swagger"
+        }
+      ]
+    },
+    {
+      "Name": "vm-console-ui-dev",
+      "DisplayName": "VM Console UI Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedGrant": "implicit",
+      "SeedScopes": "openid profile email player-api vm-api vm-console-api",
+      "Urls": [
+        {
+          "Type": "ClientUri",
+          "Value": "https://vm-console.${DOMAIN}/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm-console.${DOMAIN}/auth-callback/"
+        },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://vm-console.${DOMAIN}/auth-callback-silent/"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://vm-console.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://vm-console.${DOMAIN}" }
+      ]
+    },
+    {
+      "Name": "anvil-gitlab-dev",
+      "DisplayName": "Gitlab Development",
+      "Enabled": true,
+      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedGrant": "authorization_code",
+      "SeedScopes": "openid profile email",
+      "SeedSecret": "123456789",
+      "Urls": [
+        { "Type": "ClientUri", "Value": "https://gitlab.${DOMAIN}/" },
+        {
+          "Type": "RedirectUri",
+          "Value": "https://gitlab.${DOMAIN}/users/auth/foundry/callback"
+        },
+        {
+          "Type": "PostLogoutRedirectUri",
+          "Value": "https://gitlab.${DOMAIN}/"
+        },
+        { "Type": "CORSUri", "Value": "https://gitlab.${DOMAIN}" }
+      ]
+    }
+  ],
+  "ApiResources": [
+    {
+      "Name": "alloy-api",
+      "DisplayName": "Alloy Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    },
+    {
+      "Name": "caster-api",
+      "DisplayName": "Caster Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    },
+    {
+      "Name": "player-api",
+      "DisplayName": "Player Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    },
+    {
+      "Name": "steamfitter-api",
+      "DisplayName": "Steamfitter Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    },
+    {
+      "Name": "vm-api",
+      "DisplayName": "VM Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    },
+    {
+      "Name": "vm-console-api",
+      "DisplayName": "VM Console Api",
+      "Enabled": true,
+      "Default": true,
+      "Scopes": []
+    }
+  ]
+}

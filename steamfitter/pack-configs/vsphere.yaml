@@ -1,0 +1,7 @@
+ssl_verify: false
+vsphere:
+  default:
+    host: ${VSPHERE_SERVER}
+    passwd: ${VSPHERE_PASSWORD}
+    port: 443
+    user: ${VSPHERE_USER}

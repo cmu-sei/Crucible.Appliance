@@ -1,0 +1,25 @@
+defaultEntryPoints = ["http", "https"]
+rootCAs = [ 
+  "/certificates/sei-root-ca.crt", 
+  "/certificates/sei-unix-g3.crt", 
+  "/certificates/sei-win-ca.crt", 
+  "/vcenter-certificates/443fb139.0", 
+  "/vcenter-certificates/443fb139.r0", 
+  "/vcenter-certificates/86633492.0", 
+  "/vcenter-certificates/acc58cf2.0" 
+]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+   [entryPoints.https]
+     address = ":443"
+      [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      certFile = "/run/secrets/anvil-certificate"
+      keyFile = "/run/secrets/anvil-private-key"
+
+   
+[file]
+  filename = "vm-console.toml"
+  watch = true

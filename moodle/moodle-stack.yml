@@ -1,0 +1,74 @@
+version: "3.6"
+
+services:
+  moodle:
+    image: ${REGISTRY_URL}${NAMESPACE}${REPO}moodle:${MOODLE_TAG}
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=moodle"
+        - "traefik.port=80"
+        - "traefik.docker.network=traefik-net"
+        - "traefik.frontend.rule=Host:moodle.${DOMAIN}"
+        - "traefik.frontend.entrypoints=http,https"
+    networks:
+      - utilities
+      - traefik-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      - JQUERY_VERSION=3.4.1
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - MOODLE_DATABASE_NAME=moodle
+      - MOODLE_DATABASE_USER=moodle
+      - MOODLE_DATABASE_PASSWORD=tartans@1
+      - MOODLE_SITENAME=Anvil Moodle
+      - MOODLE_USERNAME=admin
+      - MOODLE_PASSWORD=jdFJh2k51t2c6o##
+      - MOODLE_LANGUAGE=en
+      - MARIADB_ROOT_PASSWORD=tartans@1
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_CLIENT_CREATE_DATABASE_NAME=moodle
+      - MYSQL_CLIENT_CREATE_DATABASE_USER=moodle
+      - MYSQL_CLIENT_CREATE_DATABASE_PASSWORD=tartans@1
+      - LRS_ENDPOINT=lrs.dev.anvil.cert.org
+      - LRS_USER=moodle
+      - LRS_SECRET=12345
+      - IDENTITY_URL=https://${ID_SERVER}
+      - IDENTITY_CLIENTID=moodle
+      - IDENTITY_CLIENTSECRET=e9f634415e894480bd62b1139cc1789f
+      - IDENTITY_LOGINSCOPES=openid profile email sketch-common player-api vm-api alloy-api steamfitter-api caster-api
+      - IDENTITY_LOGINSCOPESOFFLINE=openid profile email sketch-common player-api vm-api alloy-api steamfitter-api caster-api
+      - IDENTITY_NAME=Anvil Identity
+      - IDENTITY_SHOWONLOGINPAGE=true
+      - IDENTITY_REQUIRECONFIRMATION=false
+      - IDENTITY_IMAGE=https://${ID_SERVER}/favicon.ico
+      - MOODLE_SKIP_INSTALL=yes
+    volumes:
+      - moodle_install:/bitnami
+    configs:
+      - source: startup
+        target: /app-entrypoint.sh
+        mode: 0744
+
+networks:
+  utilities:
+    external: true
+  traefik-net:
+    external: true
+
+volumes:
+  moodle_install:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER},nolock,soft,rw"
+      device: ":${NFS_BASE_PATH}moodle"
+
+configs:
+  startup:
+    file: ./app-entrypoint.sh
