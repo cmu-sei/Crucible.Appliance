@@ -18,7 +18,7 @@ Release notes and further documentation can be found at https://github.com/cmu-s
 - 4 Processors
 - 6GB RAM
 
-1. Clone this repository `git clone https://github.com/cmu-sei/Crucible.Appliance.git /deploy`
+1. Clone this repository `sudo git clone https://github.com/cmu-sei/Crucible.Appliance.git /deploy`
 
 1. Navigate to `cd /deploy`
 1. `vim env` and set the variables based on the comments. pay close attention to the `ID_SERVER` and `SWARM_SERVER` values these need to match the `DOMAIN`
@@ -27,7 +27,7 @@ Release notes and further documentation can be found at https://github.com/cmu-s
 1. run `newgrp docker` to make sure you have permissions to run docker commands.
 1. Doublecheck the `env` file has the values you want. and run `sudo /deploy/docs/appliance/scripts/configure.sh`
 1. After the configure script finishes, it's takes about ~5 minutes for all the applications to be ready
-1. To seed the databases with sample data run `sudo /deploy/docs/appliance/scripts/crucible-seed.sh` Be carful running this file as it drops the databases and re-creates them resetting the data in alloy, caster, player, steamfitter, vm, and vm-console
+1. To seed the databases with sample data run `sudo /deploy/docs/appliance/scripts/crucible-seed.sh` Be careful running this file as it drops the databases and re-creates them resetting the data in alloy, caster, player, steamfitter, vm, and vm-console
 
 ## DNS
 
@@ -65,32 +65,49 @@ Run `/deploy/docs/appliance/scripts/reset.sh`
 
 ## Default Appliance Info
 
-**Credentials**
+### **Credentials**
+
+---
 
 | Application   | Username          | Password     | Notes                                                                                     |
 | ------------- | ----------------- | ------------ | ----------------------------------------------------------------------------------------- |
-| Crucible Apps | admin@crucible.io | 321ChangeMe! |                                                                                           |
+| Crucible Apps | admin@crucible.io | 321ChangeMe! | ADMIN_PASS                                                                                |
 | Gitlab        | root              | 321ChangeMe! | Also connected to the identity server, click the `foundry` button under the login section |
+| stackstorm    | st2admin          | 321ChangeMe! | ADMIN_PASS                                                                                |
+| portainer     | admin             | 321ChangeMe! | ADMIN_PASS                                                                                |
 
-**URLS**
+### **URLS**
+
+---
 
 Replace `crucible.io` with the `<DOMAIN>` environment Url if changed.
 
-| Application     | URL                            |
-| --------------- | ------------------------------ |
-| Alloy           | alloy.crucible.io              |
-| Alloy API       | alloy-api.crucible.io/swagger  |
-| Caster          | caster.crucible.io             |
-| Caster API      | caster-api.crucible.io/api     |
-| Identity        | id.crucible.io                 |
-| Identity API    | id.crucible.io/api             |
-| Player          | player.crucible.io             |
-| Player API      | player-api.crucible.io/swagger |
-| Steamfitter     | steamfitter.crucible.io        |
-| Steamfitter API | steamfitter-api.crucible.io    |
-| VM              | vm.crucible.io                 |
-| VM API          | vm-api.crucible.io/swagger     |
-| VM Console      | vm-console.crucible.io         |
+| Application     | URL                                                                                |
+| --------------- | ---------------------------------------------------------------------------------- |
+| Alloy           | [alloy.crucible.io](https://alloy.crucible.io)                                     |
+| Alloy API       | [alloy-api.crucible.io/swagger](https://alloy-api.crucible.io/swagger)             |
+| Caster          | [caster.crucible.io](https://caster.crucible.io)                                   |
+| Caster API      | [caster-api.crucible.io/api](https://caster-api.crucible.io/api)                   |
+| Identity        | [id.crucible.io](https://id.crucible.io)                                           |
+| Identity API    | [id.crucible.io/api](https://id.crucible.io/api)                                   |
+| Player          | [player.crucible.io](https://player.crucible.io)                                   |
+| Player API      | [player-api.crucible.io/swagger](https://player-api.crucible.io/swagger)           |
+| Steamfitter     | [steamfitter.crucible.io](https://steamfitter.crucible.io)                         |
+| Steamfitter API | [steamfitter-api.crucible.io/swagger](https://steamfitter-api.crucible.io/swagger) |
+| VM              | [vm.crucible.io](https://vm.crucible.io)                                           |
+| VM API          | [vm-api.crucible.io/swagger](https://vm-api.crucible.io/swagger)                   |
+| VM Console      | [vm-console.crucible.io](https://vm-console.crucible.io)                           |
+
+### **3rd Party URLS**
+
+---
+
+| 3rd Party Applications | URL                                                      |
+| ---------------------- | -------------------------------------------------------- |
+| Gitlab                 | [gitlab.crucible.io](https://gitlab.crucible.io)         |
+| Portainer              | [swarm.crucible.io](https://swarm.crucible.io)           |
+| Stackstorm             | [stackstorm.crucible.io](https://stackstorm.crucible.io) |
+| Kibana                 | [kibana.crucible.io](https://kibana.crucible.io)         |
 
 ## Usage
 
@@ -108,7 +125,7 @@ are shell application placed in `/usr/local/bin` they aim to assist in the deplo
 
 `son` & `soff` are non-destructive. No changes will be made to your data.
 
-| commad             | notes                         |
+| command            | notes                         |
 | ------------------ | ----------------------------- |
 | son                | Deploy all applications       |
 | son player         | Deploy only player            |
@@ -119,7 +136,26 @@ are shell application placed in `/usr/local/bin` they aim to assist in the deplo
 
 #### **IMPORTANT**
 
-`son` & `soff` search the `/deploy` directory for folders of applications to deploy, due to the differences in our various environments it's important to note that on the appliance root level settings folders are overridden by folders in `/deploy/docs/appliance/compose` if you find your settings are not being applied check if a folder exists under this directory and modify your settings there.
+`son` & `soff` search the `/deploy` directory for folders of applications to deploy, due to the differences in our various environments it's important to note, on the appliance root level settings folders are overridden by folders in `/deploy/docs/appliance/compose` if you find your settings are not being applied check if a folder exists under this directory and modify your settings there.
+
+## Example / Seed Data
+
+Crucible can optionally be seeded with example data. Run the `/deploy/docs/appliance/scripts/crucible-seed.sh`
+
+_Warning: this will reset the data in the appliance._
+
+Player - Two views are created, one for a standard view and one for an alloy view.
+
+Alloy - One event connected to a Player View, Caster Directory, and Steamfitter Scenario.
+
+Caster - One Project that deploys a single Ubuntu VM and Distributed Portgroup.
+
+- Requirements:
+  1. vSphere server with a datacenter, cluster and Distributed Virtual Switch.
+  2. Ubuntu Template or VM with a snapshot taken.
+- Within caster make sure to customize `variables.auto.tfvars` file with your environment information.
+
+Steamfitter - One scenario template with 4 simple tasks configured.
 
 ## FAQ
 

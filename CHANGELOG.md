@@ -1,3 +1,38 @@
+## 0.0.3
+
+### Steamfitter bug fixes
+
+- Various steamfitter and stackstorm deployment bugs are fixed.
+
+### Example Data / Seed Data
+
+Player - Two views are created, one for a standard view and one for an alloy view.
+
+Alloy - One event connected to a Player View, Caster Directory, and Steamfitter Scenario.
+
+Caster - One Project that deploys a single Ubuntu VM and Distributed Portgroup.
+
+- Requirements:
+  1. vSphere server with a datacenter, cluster and distributed virtual switch.
+  2. Ubuntu Template or VM with a snapshot taken.
+- Within caster make sure to customize `variables.auto.tfvars` file with your environment information.
+
+Steamfitter - One scenario template with 4 simple tasks configured.
+
+### VSPHERE_CLUSTER and STACK_CLUSTER_MOID variables added to the `env` file
+
+- Steamfitter api requires the vSphere cluster MOID as a parameter.
+- `configure.sh` attempts to get this value based on the VSPHERE_CLUSTER `env` variable. the script will automatically set the `STACK_CLUSTER_MOID`
+
+### PowerShell and PowerCLI added
+
+- Automatic configuration of PowerShell Core and vSphere PowerCLI added to `prep.sh` script.
+
+### Logging stack added
+
+- A logging stack is now available with elastic search, kibana, and filebeat.
+- Sparse and minimally configured
+
 ## 0.0.2
 
 ### `son` and `soff` implemented

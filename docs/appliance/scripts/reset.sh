@@ -16,8 +16,6 @@ docker network rm utilities
 rm -rf /mnt/data/*
 rm -rf /tmp/*
 
-sudo rm -rf /deploy && sudo mkdir /deploy && sudo cp -r /home/crucible/crucible-deploy/. /deploy
 echo "Rebooting in 10 seconds"
 sleep 10
 shutdown -r now 
-echo "Appliance has been reset, Please Reconfigure"
