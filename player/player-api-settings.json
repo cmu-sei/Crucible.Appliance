@@ -15,8 +15,8 @@
     "Provider": "PostgreSQL"
   },
   "Authorization": {
-    "Authority": "https://id.anvil.cert.org",
-    "AuthorizationUrl": "https://id.anvil.cert.org/connect/authorize",
+    "Authority": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}",
     "AuthorizationScope": "player-api",
     "ClientId": "player-api-dev",
     "ClientName": "Player API",

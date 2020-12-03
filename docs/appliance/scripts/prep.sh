@@ -16,7 +16,7 @@ source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 echo "Appliance Mode set to ${APPLIANCE_DEV}"
 if [[ ${APPLIANCE_DEV} == "true" && -d /home/crucible/crucible-deploy ]]; then
   echo "Appliance in DEV MODE copying files..."
-  cp -r "/home/crucible/crucible-deploy/." "${DEPLOY}["
+  cp -r "/home/crucible/crucible-deploy/." "${DEPLOY}"
 fi
 cd "${DEPLOY}"
 # Set the environment variables

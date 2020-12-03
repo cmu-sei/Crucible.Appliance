@@ -8,7 +8,7 @@
     "response_type": "id_token token",
     "scope": "openid profile email caster-api",
     "automaticSilentRenew": true,
-    "silent_redirect_uri": "https://caster.dev.anvil.cert.org/auth-callback-silent/"
+    "silent_redirect_uri": "https://caster.${DOMAIN}/auth-callback-silent/"
   },
   "UseLocalAuthStorage": true,
   "AppTopBarHexColor": "#E9831C",
