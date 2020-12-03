@@ -35,7 +35,7 @@ deploy(){
 replace_configs(){
   s=${1}
   temp=/tmp/${s}
-  regex=${2:-'.*\.(json|gitconfig)'}
+  regex=${2:-'.*\.(json|gitconfig|conf)'}
   
   mkdir -p $temp
   # Copy files to tmp
@@ -55,7 +55,12 @@ replace_configs(){
       tf=${f}.tmp
       cp $f $tf
       # Replace Environment Variables
-      cat $f | envsubst | tee $tf && mv -f $tf $f
+      if [[ $f == *.conf ]]; then
+        # Don't clobber nginx configuration variables
+        cat $f | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee $tf && mv -f $tf $f
+      else
+        cat $f | envsubst | tee $tf && mv -f $tf $f
+      fi
     done
     echo $files
   fi

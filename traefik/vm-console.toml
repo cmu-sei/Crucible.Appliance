@@ -34,16 +34,3 @@
   {{ end }}
 {{ end }}
 
-[backends.backendesx04]
-  [backends.backendesx04.servers]
-    [backends.backendesx04.servers0]
-      url = https://esx-04.covert-cloud.com
-
-[frontends.frontendesx04]
-  entryPoints = ["wss", "https"]
-  backend = "backendesx04"
-  passHostHeader = true
-  [frontends.frontendesx04.routes]
-    [frontends.frontendesx04.routes.route0]
-      rule = "Host:{{$connectPrefix}}.{{$domain}};Query:vmhost=esx-04.covert-cloud.com"
-
