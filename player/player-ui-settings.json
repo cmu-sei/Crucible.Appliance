@@ -1,7 +1,7 @@
 {
   "ApiUrl": "https://player-api.${DOMAIN}",
   "OIDCSettings": {
-    "authority": "https://id.${DOMAIN/",
+    "authority": "https://id.${DOMAIN}/",
     "client_id": "player-ui-dev",
     "redirect_uri": "https://player.${DOMAIN}/auth-callback/",
     "post_logout_redirect_uri": "https://player.${DOMAIN}/",

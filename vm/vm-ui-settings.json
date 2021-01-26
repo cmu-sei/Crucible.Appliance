@@ -3,6 +3,7 @@
   "DeployApiUrl": "notyetimplemented.org",
   "ApiPlayerUrl": "https://player-api.${DOMAIN}",
   "WelderUrl": "https://welder.${DOMAIN}",
+  "UserFollowUrl": "https://vm-console.${DOMAIN}/user/{userId}/view/{viewId}/console",
   "OIDCSettings": {
     "authority": "https://id.${DOMAIN}",
     "client_id": "vm-ui-dev",

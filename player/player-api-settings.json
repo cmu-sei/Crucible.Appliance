@@ -38,6 +38,20 @@
     "AllowAnyHeader": true,
     "SupportsCredentials": true
   },
+  "FileUpload": {
+    "basePath": "/fileupload",
+    "maxSize": "64000000",
+    "allowedExtensions": [
+      ".pdf",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".doc",
+      ".docx",
+      ".gif",
+      ".txt"
+    ]
+  },
   "SeedData": {
     "Permissions": [
       {

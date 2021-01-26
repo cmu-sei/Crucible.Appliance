@@ -11,7 +11,7 @@ VARS_PATH=${VARS_PATH:-env}
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 
 # Array of all available stacks
-all_stacks=('utilities' 'logging' 'alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'vm' 'vm-console')
+all_stacks=('utilities' 'logging' 'alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'vm')
 
 # Set the stacks
 if [[ $# -gt 0 ]]; then

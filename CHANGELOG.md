@@ -1,3 +1,12 @@
+## 0.0.5
+
+- Updated to the latest versions of Crucible applications.
+- Added hotkeys settings to caster-ui.
+- Removed `vm-console` folder. `vm-console` is now part of the `vm` stack.
+- Fixed a bug in steamfitter where the custom vsphere packs were not installed.
+- Updated player stack to include configurations and volumes for the file upload feature.
+- Added `UserFollowUrl` setting to the vm-ui
+
 ## 0.0.4
 
 - Updated son to handle `.conf` files.

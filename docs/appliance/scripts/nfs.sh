@@ -25,6 +25,7 @@ certificates/vcenter/lin \
 terraform \
 stackstorm \
 stackstorm/packs \
+stackstorm/packs/vsphere/actions \
 stackstorm/virtualenvs \
 stackstorm/configs \
 stackstorm/logs \
@@ -37,7 +38,8 @@ gitlab/config \
 elasticsearch \
 identity-data \
 portainer \
-iso/player
+iso/player \ 
+fileupload
 
 cd $pwd
 echo "returning to $pwd"
