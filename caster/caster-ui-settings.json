@@ -13,5 +13,36 @@
   "UseLocalAuthStorage": true,
   "AppTopBarHexColor": "#E9831C",
   "AppTopBarHexTextColor": "#FFFFFF",
-  "AppTopBarText": "Caster"
+  "AppTopBarText": "Caster",
+  "Hotkeys": {
+    "PROJECT_NEW": {
+      "keys": "meta.p",
+      "group": "",
+      "description": "New Project"
+    },
+    "ENTER": {
+      "keys": "enter",
+      "group": "Global",
+      "description": "Default 'confirm'",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    },
+    "ESCAPE": {
+      "keys": "escape",
+      "group": "Global",
+      "description": "Default 'cancel'",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    },
+    "FILE_LOCK_TOGGLE": {
+      "keys": "control.l",
+      "group": "Editor",
+      "description": "Unlock / Lock a file",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    },
+    "FILE_SAVE": {
+      "keys": "control.s",
+      "group": "Editor",
+      "description": "Save a file",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    }
+  }
 }

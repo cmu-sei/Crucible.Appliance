@@ -60,5 +60,10 @@
     "Scope": "player-api vm-api",
     "Username": "player.vm.admin@${DOMAIN}",
     "Password": "${ADMIN_PASS}"
+  },
+  "ConsoleUrls": {
+    "Vsphere": {
+      "Url": "https://vm-console.${DOMAIN}"
+    }
   }
 }

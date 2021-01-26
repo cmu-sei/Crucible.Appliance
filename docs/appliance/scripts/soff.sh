@@ -8,7 +8,7 @@ VARS_PATH=${VARS_PATH:-env}
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 
 # Array of all available stacks
-all_stacks=('alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'utilities' 'logging' 'vm' 'vm-console')
+all_stacks=('alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'utilities' 'logging' 'vm')
 
 # Set the stacks
 if [[ $# -gt 0 ]]; then

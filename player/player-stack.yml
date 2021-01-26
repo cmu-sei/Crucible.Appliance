@@ -18,6 +18,7 @@ services:
       - traefik-net
     volumes:
       - sei-ca:/usr/local/share/ca-certificates
+      - fileupload:/fileupload
     logging:
       driver: 'json-file'
       options:
@@ -54,6 +55,11 @@ volumes:
       type: 'nfs'
       o: 'addr=${NFS_SERVER},nolock,soft,rw'
       device: ':${NFS_BASE_PATH}certificates/sei-ca'
+  fileupload:
+    driver_opts:
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':${NFS_BASE_PATH}fileupload'
 networks:
   utilities:
     external: true
