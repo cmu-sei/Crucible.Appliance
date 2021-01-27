@@ -11,7 +11,7 @@ FILE=$3
 
 if [[ -z $FILE ]]; then
   echo "Replacing $1 with $2 in all files"
-  find ${DEPLOY} -not -path '*/\.*' -type f -exec sed -i "s/$OLD_DOMAIN/$NEW_DOMAIN/g" {} \;
+  find ${DEPLOY} -not -path '*/\.*' -not -path '*configure*' -not -path '*crucible-seed*' -type f -exec sed -i "s/$OLD_DOMAIN/$NEW_DOMAIN/g" {} \;
   # sed -i "s/$OLD_DOMAIN/$NEW_DOMAIN/g" ${DEPLOY}/env;
 elif [[ -d $FILE ]]; then
   echo "Replacing $1 with $2 in $FILE"
