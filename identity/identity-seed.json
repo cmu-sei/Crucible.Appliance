@@ -70,7 +70,7 @@
       "Name": "alloy-ui-dev",
       "DisplayName": "Alloy UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
       "SeedGrant": "implicit",
       "SeedScopes": "openid profile alloy-api player-api caster-api steamfitter-api vm-api",
       "Urls": [
@@ -116,7 +116,7 @@
       "Name": "caster-ui-dev",
       "DisplayName": "Caster UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
       "SeedGrant": "implicit",
       "SeedScopes": "openid profile email caster-api",
       "Urls": [
@@ -235,7 +235,7 @@
       "Name": "steamfitter-ui-dev",
       "DisplayName": "Steamfitter UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
       "SeedGrant": "implicit",
       "SeedScopes": "openid profile player-api steamfitter-api vm-api",
       "Urls": [
@@ -330,7 +330,7 @@
       "Name": "vm-console-ui-dev",
       "DisplayName": "VM Console UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
       "SeedGrant": "implicit",
       "SeedScopes": "openid profile email player-api vm-api vm-console-api",
       "Urls": [
@@ -357,7 +357,7 @@
       "Name": "anvil-gitlab-dev",
       "DisplayName": "Gitlab Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, RequireConsent, Published",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
       "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile email",
       "SeedSecret": "123456789",

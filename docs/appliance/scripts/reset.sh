@@ -7,7 +7,7 @@ soff
 docker secret rm $(docker secret ls -q)
 docker config rm $(docker config ls -q)
 echo "Sleeping for 20 seconds to wait for volumes and networks"
-sleep 20
+sleep 30
 docker volume rm $(docker volume ls -q)
 docker network rm traefik-net
 docker network rm utilities
