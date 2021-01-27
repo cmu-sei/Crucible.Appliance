@@ -12,7 +12,7 @@ EXPORTS_PATH="docs/appliance/exports/dbs"
 # Set the environment variables
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 # soff databases to import 
-soff caster player alloy steamfitter vm vm-console
+soff caster player alloy steamfitter vm
 echo "Waiting 20 seconds for applications to shutdown"
 sleep 20
 # Replace domain

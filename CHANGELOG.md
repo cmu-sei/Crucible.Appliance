@@ -6,6 +6,7 @@
 - Fixed a bug in steamfitter where the custom vsphere packs were not installed.
 - Updated player stack to include configurations and volumes for the file upload feature.
 - Added `UserFollowUrl` setting to the vm-ui
+- Removed `RequireConsent` from crucible apps and 3rd party apps. It's annoying.
 
 ## 0.0.4
 
