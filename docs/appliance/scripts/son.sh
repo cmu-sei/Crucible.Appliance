@@ -95,7 +95,6 @@ for s in ${STACKS[@]} ; do
     fi
     #Copy runtime configs
     cp -r /tmp/${s}/runtime/. ${NFS_BASE_PATH}stackstorm/runtime
-    cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
     echo "deploying ${s}"
     if [[ ! -d ${NFS_BASE_PATH}stackstorm/packs/vsphere ]]; then 
       echo "vsphere pack not installed running first"
@@ -106,6 +105,7 @@ for s in ${STACKS[@]} ; do
       cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
       deploy ${s}
     else
+      cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
       deploy ${s}
     fi
   else

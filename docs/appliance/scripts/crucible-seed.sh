@@ -30,4 +30,4 @@ for file in $FILES; do
   PGPASSWORD=postgres psql -h localhost -U postgres < ${DEPLOY}/${EXPORTS_PATH}/${file}.sql
 done
 
-son caster player alloy steamfitter vm vm-console
+son caster player alloy steamfitter vm
