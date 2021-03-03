@@ -24,7 +24,7 @@
       "keys": "enter",
       "group": "Global",
       "description": "Default 'confirm'",
-      "allowIn": ["INPUT", "TEXTAREA"]
+      "allowIn": ["INPUT"]
     },
     "ESCAPE": {
       "keys": "escape",
