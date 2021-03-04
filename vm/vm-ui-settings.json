@@ -3,8 +3,9 @@
   "DeployApiUrl": "notyetimplemented.org",
   "ApiPlayerUrl": "https://player-api.${DOMAIN}",
   "WelderUrl": "https://welder.${DOMAIN}",
+  "UserFollowUrl": "https://vm-console.${DOMAIN}/user/{userId}/view/{viewId}/console",
   "OIDCSettings": {
-    "authority": "https://id.anvil.cert.org",
+    "authority": "https://id.${DOMAIN}",
     "client_id": "vm-ui-dev",
     "redirect_uri": "https://vm.${DOMAIN}/auth-callback/",
     "post_logout_redirect_uri": "https://vm.${DOMAIN}",

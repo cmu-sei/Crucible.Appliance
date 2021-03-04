@@ -8,10 +8,41 @@
     "response_type": "id_token token",
     "scope": "openid profile email caster-api",
     "automaticSilentRenew": true,
-    "silent_redirect_uri": "https://caster.dev.anvil.cert.org/auth-callback-silent/"
+    "silent_redirect_uri": "https://caster.${DOMAIN}/auth-callback-silent/"
   },
   "UseLocalAuthStorage": true,
   "AppTopBarHexColor": "#E9831C",
   "AppTopBarHexTextColor": "#FFFFFF",
-  "AppTopBarText": "Caster"
+  "AppTopBarText": "Caster",
+  "Hotkeys": {
+    "PROJECT_NEW": {
+      "keys": "meta.p",
+      "group": "",
+      "description": "New Project"
+    },
+    "ENTER": {
+      "keys": "enter",
+      "group": "Global",
+      "description": "Default 'confirm'",
+      "allowIn": ["INPUT"]
+    },
+    "ESCAPE": {
+      "keys": "escape",
+      "group": "Global",
+      "description": "Default 'cancel'",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    },
+    "FILE_LOCK_TOGGLE": {
+      "keys": "control.l",
+      "group": "Editor",
+      "description": "Unlock / Lock a file",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    },
+    "FILE_SAVE": {
+      "keys": "control.s",
+      "group": "Editor",
+      "description": "Save a file",
+      "allowIn": ["INPUT", "TEXTAREA"]
+    }
+  }
 }

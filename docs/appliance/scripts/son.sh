@@ -11,7 +11,7 @@ VARS_PATH=${VARS_PATH:-env}
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 
 # Array of all available stacks
-all_stacks=('utilities' 'logging' 'alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'vm' 'vm-console')
+all_stacks=('utilities' 'logging' 'alloy' 'caster' 'identity' 'player' 'steamfitter' 'traefik' 'vm')
 
 # Set the stacks
 if [[ $# -gt 0 ]]; then
@@ -35,7 +35,7 @@ deploy(){
 replace_configs(){
   s=${1}
   temp=/tmp/${s}
-  regex=${2:-'.*\.(json|gitconfig)'}
+  regex=${2:-'.*\.(json|gitconfig|conf)'}
   
   mkdir -p $temp
   # Copy files to tmp
@@ -55,7 +55,12 @@ replace_configs(){
       tf=${f}.tmp
       cp $f $tf
       # Replace Environment Variables
-      cat $f | envsubst | tee $tf && mv -f $tf $f
+      if [[ $f == *.conf ]]; then
+        # Don't clobber nginx configuration variables
+        cat $f | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee $tf && mv -f $tf $f
+      else
+        cat $f | envsubst | tee $tf && mv -f $tf $f
+      fi
     done
     echo $files
   fi
@@ -90,7 +95,6 @@ for s in ${STACKS[@]} ; do
     fi
     #Copy runtime configs
     cp -r /tmp/${s}/runtime/. ${NFS_BASE_PATH}stackstorm/runtime
-    cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
     echo "deploying ${s}"
     if [[ ! -d ${NFS_BASE_PATH}stackstorm/packs/vsphere ]]; then 
       echo "vsphere pack not installed running first"
@@ -101,6 +105,7 @@ for s in ${STACKS[@]} ; do
       cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
       deploy ${s}
     else
+      cp -r /tmp/${s}/pack-configs/actions/. ${NFS_BASE_PATH}stackstorm/packs/vsphere/actions
       deploy ${s}
     fi
   else

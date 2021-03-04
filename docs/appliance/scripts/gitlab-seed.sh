@@ -8,7 +8,7 @@ CONTAINER_PATH="docs/appliance/containers"
 VARS_PATH=${VARS_PATH:-env}
 EXPORTS_PATH="docs/appliance/exports/gitlab"
 TIMEOUT=0
-MAX_TIMEOUT=300
+MAX_TIMEOUT=360
 # Set the environment variables
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 

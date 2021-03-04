@@ -47,6 +47,8 @@ services:
     networks:
       - traefik-net
       - utilities
+    environment:
+      APP_BASEHREF: /ui
     logging:
       driver: 'json-file'
       options:
@@ -54,7 +56,7 @@ services:
         max-file: '10'
     configs:
       - source: identity-ui-settings
-        target: /var/www/ui/assets/settings.env.json
+        target: /var/www/assets/settings.env.json
 
   appmail:
     image: cmusei/appmailrelay:2.3.0

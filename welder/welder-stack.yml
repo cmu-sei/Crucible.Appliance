@@ -1,4 +1,4 @@
-version: "3.6"
+version: '3.6'
 
 services:
   welder:
@@ -6,12 +6,12 @@ services:
     deploy:
       replicas: 1
       labels:
-        - "traefik.enable=true"
-        - "traefik.backend=welder"
-        - "traefik.port=80"
-        - "traefik.docker.network=traefik-net"
-        - "traefik.frontend.rule=Host:welder.${DOMAIN}"
-        - "traefik.frontend.entrypoints=http,https"
+        - 'traefik.enable=true'
+        - 'traefik.backend=welder'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=traefik-net'
+        - 'traefik.frontend.rule=Host:welder.${DOMAIN}'
+        - 'traefik.frontend.entrypoints=http,https'
     entrypoint: bash -c "update-ca-certificates && flask run --host=0.0.0.0 --port=80"
     environment:
       VCENTER_HOST: ${VSPHERE_SERVER}
@@ -22,9 +22,9 @@ services:
       VM_API_URL: https://vm-api.${DOMAIN}
       VM_CONSOLE_WEB_URL: https://vm-console.${DOMAIN}
       TOKEN_USERNAME: welder-privileged@this.ws
-      TOKEN_PASSWORD: ChangeMe321!
+      TOKEN_PASSWORD: ${ADMIN_PASS}
       WORKER_THREAD_COUNT: 1
-      VM_API_SCOPES: "player-api vm-api"
+      VM_API_SCOPES: 'player-api vm-api'
       IDENTITY_AUDIENCE: player-api
       REQUESTS_CA_BUNDLE: /etc/ssl/certs/
     networks:
@@ -33,20 +33,20 @@ services:
     volumes:
       - sei-ca:/usr/local/share/ca-certificates
     logging:
-      driver: "json-file"
+      driver: 'json-file'
       options:
-        max-size: "100m"
-        max-file: "10"
-    configs: 
+        max-size: '100m'
+        max-file: '10'
+    configs:
       - source: welder-settings
         target: /usr/src/app/welder.json
-    
+
 volumes:
   sei-ca:
     driver_opts:
-      type: "nfs"
-      o: "addr=${NFS_SERVER},nolock,soft,rw"
-      device: ":/mnt/data/certificates/sei-ca"
+      type: 'nfs'
+      o: 'addr=${NFS_SERVER},nolock,soft,rw'
+      device: ':/mnt/data/certificates/sei-ca'
 networks:
   utilities:
     external: true

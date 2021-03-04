@@ -1,17 +1,17 @@
 {
-  "ApiUrl": "https://player-api.dev.anvil.cert.org",
+  "ApiUrl": "https://player-api.${DOMAIN}",
   "OIDCSettings": {
-    "authority": "https://id.anvil.cert.org/",
+    "authority": "https://id.${DOMAIN}/",
     "client_id": "player-ui-dev",
-    "redirect_uri": "https://player.dev.anvil.cert.org/auth-callback/",
-    "post_logout_redirect_uri": "https://player.dev.anvil.cert.org/",
+    "redirect_uri": "https://player.${DOMAIN}/auth-callback/",
+    "post_logout_redirect_uri": "https://player.${DOMAIN}/",
     "response_type": "id_token token",
     "scope": "openid profile email player-api",
     "automaticSilentRenew": true,
-    "silent_redirect_uri": "https://player.dev.anvil.cert.org/auth-callback-silent/"
+    "silent_redirect_uri": "https://player.${DOMAIN}/auth-callback-silent/"
   },
   "NotificationsSettings": {
-    "url": "https://player-api.dev.anvil.cert.org/notifications",
+    "url": "https://player-api.${DOMAIN}/notifications",
     "number_to_display": 4
   },
   "AppTitle": "Player",

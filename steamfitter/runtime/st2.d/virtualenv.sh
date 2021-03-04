@@ -9,6 +9,6 @@ if [ ! -d "$EXAMPLES" ]; then
 fi
 if [ ! -d "$VSPHERE" ]; then
   st2 pack install vsphere 
-  st2 run packs.setup_virtualenv packs=vsphere
+  chmod -R 775 /opt/stackstorm/packs/vsphere
+  chgrp -R st2packs /opt/stackstorm/packs/vsphere
 fi
-

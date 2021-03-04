@@ -37,7 +37,8 @@ gitlab/config \
 elasticsearch \
 identity-data \
 portainer \
-iso/player
+iso/player \
+fileupload
 
 cd $pwd
 echo "returning to $pwd"
