@@ -8,11 +8,11 @@ CFSSL=/usr/local/bin/cfssl
 CFSSLJSON=/usr/local/bin/cfssljson
 
 if [ ! -f "$CFSSL" ]; then
-  curl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 --output $CFSSL
+  curl -L https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 --output $CFSSL
 fi
 
 if [ ! -f "$CFSSLJSON" ]; then
-  curl https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 --output $CFSSLJSON
+  curl -L https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 --output $CFSSLJSON
 fi
 
 chmod +x $CFSSL $CFSSLJSON
