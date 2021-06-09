@@ -32,6 +32,7 @@
   "Authorization": {
     "Authority": "https://id.${DOMAIN}",
     "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
     "AuthorizationScope": "steamfitter-api player-api vm-api",
     "ClientId": "steamfitter-api-dev",
     "ClientName": "Steamfitter API",

@@ -44,12 +44,12 @@ OSTICKET_TAG=latest
 MOODLE_TAG=latest
 
 [alloy]
-ALLOY_API_TAG=2.1
-ALLOY_UI_TAG=2.2
+ALLOY_API_TAG=3.0
+ALLOY_UI_TAG=3.0
 
 [caster]
-CASTER_API_TAG=2.1
-CASTER_UI_TAG=2.2
+CASTER_API_TAG=3.0
+CASTER_UI_TAG=3.0
 TERRAFORM_VERSIONS=0.12.29,0.13.1,0.13.2,0.13.2
 TERRAFORM_DEFAULT=0.13.2
 # leave blank this will be updated with the configure.sh script
@@ -57,20 +57,19 @@ GITLAB_GROUP_ID=
 MODULES_GROUP=caster-modules
 
 [player]
-PLAYER_API_TAG=2.3
-PLAYER_UI_TAG=2.3
+PLAYER_API_TAG=3.0
+PLAYER_UI_TAG=3.0
 
 [steamfitter]
-STEAM_API_TAG=2.2
-STEAM_UI_TAG=2.2
+STEAM_API_TAG=3.2
+STEAM_UI_TAG=3.2
 # Leave blank, This value will be filled in by the configure script base on the VSPHERE_CLUSTER variable
 STEAM_CLUSTER_MOID=
 
 [vm]
-VM_API_TAG=2.4
-VM_UI_TAG=2.4
+VM_API_TAG=3.0
+VM_UI_TAG=3.0
 VM_ISO_DATSTORE=iso
 
 [vm-console]
-VM_CONSOLE_API_TAG=2.1
-VM_CONSOLE_UI_TAG=2.4
+VM_CONSOLE_UI_TAG=3.0

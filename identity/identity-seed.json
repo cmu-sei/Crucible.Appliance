@@ -39,21 +39,21 @@
       "Name": "alloy-api-dev",
       "DisplayName": "Alloy API Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "alloy-api player-api caster-api steamfitter-api vm-api",
       "Urls": [
         {
           "Type": "ClientUri",
-          "Value": "https://alloy-api.${DOMAIN}"
+          "Value": "https://alloy-api.${DOMAIN}/api"
         },
         {
           "Type": "RedirectUri",
-          "Value": "https://alloy-api.${DOMAIN}/swagger/oauth2-redirect.html"
+          "Value": "https://alloy-api.${DOMAIN}/api/oauth2-redirect.html"
         },
         {
           "Type": "PostLogoutRedirectUri",
-          "Value": "https://alloy-api.${DOMAIN}/swagger"
+          "Value": "https://alloy-api.${DOMAIN}/api"
         }
       ]
     },
@@ -61,7 +61,7 @@
       "Name": "alloy-admin",
       "DisplayName": "Alloy Admin",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaportal",
+      "SeedFlags": "AllowAccessTokensViaportal, RequirePkce",
       "SeedGrant": "password",
       "SeedScopes": "openid alloy-api player-api caster-api steamfitter-api vm-api",
       "Urls": [{ "Type": "CORSUri", "Value": "https://alloy-api.${DOMAIN}" }]
@@ -70,8 +70,8 @@
       "Name": "alloy-ui-dev",
       "DisplayName": "Alloy UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile alloy-api player-api caster-api steamfitter-api vm-api",
       "Urls": [
         { "Type": "ClientUri", "Value": "https://alloy.${DOMAIN}/" },
@@ -94,13 +94,13 @@
       "Name": "caster-api-dev",
       "DisplayName": "Caster API Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid caster-api",
       "Urls": [
         {
           "Type": "ClientUri",
-          "Value": "https://caster-api.${DOMAIN}"
+          "Value": "https://caster-api.${DOMAIN}/api"
         },
         {
           "Type": "RedirectUri",
@@ -116,8 +116,8 @@
       "Name": "caster-ui-dev",
       "DisplayName": "Caster UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile email caster-api",
       "Urls": [
         { "Type": "ClientUri", "Value": "https://caster.${DOMAIN}/" },
@@ -149,21 +149,21 @@
       "Name": "player-api-dev",
       "DisplayName": "Player API Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid player-api",
       "Urls": [
         {
           "Type": "ClientUri",
-          "Value": "https://player-api.${DOMAIN}"
+          "Value": "https://player-api.${DOMAIN}/api"
         },
         {
           "Type": "RedirectUri",
-          "Value": "https://player-api.${DOMAIN}/swagger/oauth2-redirect.html"
+          "Value": "https://player-api.${DOMAIN}/api/oauth2-redirect.html"
         },
         {
           "Type": "PostLogoutRedirectUri",
-          "Value": "https://player-api.${DOMAIN}/swagger"
+          "Value": "https://player-api.${DOMAIN}/api"
         }
       ]
     },
@@ -171,8 +171,8 @@
       "Name": "player-ui-dev",
       "DisplayName": "Player UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile email player-api",
       "Urls": [
         { "Type": "ClientUri", "Value": "https://player.${DOMAIN}/" },
@@ -213,21 +213,21 @@
       "Name": "steamfitter-api-dev",
       "DisplayName": "Steamfitter API Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid player-api steamfitter-api vm-api",
       "Urls": [
         {
           "Type": "ClientUri",
-          "Value": "https://steamfitter-api.${DOMAIN}"
+          "Value": "https://steamfitter-api.${DOMAIN}/api"
         },
         {
           "Type": "RedirectUri",
-          "Value": "https://steamfitter-api.${DOMAIN}/swagger/oauth2-redirect.html"
+          "Value": "https://steamfitter-api.${DOMAIN}/api/oauth2-redirect.html"
         },
         {
           "Type": "PostLogoutRedirectUri",
-          "Value": "https://steamfitter-api.${DOMAIN}/swagger"
+          "Value": "https://steamfitter-api.${DOMAIN}/api"
         }
       ]
     },
@@ -235,8 +235,8 @@
       "Name": "steamfitter-ui-dev",
       "DisplayName": "Steamfitter UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile player-api steamfitter-api vm-api",
       "Urls": [
         {
@@ -265,18 +265,18 @@
       "Name": "vm-api-dev",
       "DisplayName": "VM API Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid player-api vm-api",
       "Urls": [
-        { "Type": "ClientUri", "Value": "https://vm-api.${DOMAIN}" },
+        { "Type": "ClientUri", "Value": "https://vm-api.${DOMAIN}/api" },
         {
           "Type": "RedirectUri",
-          "Value": "https://vm-api.${DOMAIN}/swagger/oauth2-redirect.html"
+          "Value": "https://vm-api.${DOMAIN}/api/oauth2-redirect.html"
         },
         {
           "Type": "PostLogoutRedirectUri",
-          "Value": "https://vm-api.${DOMAIN}/swagger"
+          "Value": "https://vm-api.${DOMAIN}/api"
         }
       ]
     },
@@ -284,8 +284,8 @@
       "Name": "vm-ui-dev",
       "DisplayName": "VM UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile email player-api vm-api",
       "Urls": [
         { "Type": "ClientUri", "Value": "https://vm.${DOMAIN}/" },
@@ -305,33 +305,11 @@
       ]
     },
     {
-      "Name": "vm-console-api-dev",
-      "DisplayName": "VM Console API Development",
-      "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
-      "SeedScopes": "openid player-api vm-api vm-console-api",
-      "Urls": [
-        {
-          "Type": "ClientUri",
-          "Value": "https://vm-console-api.${DOMAIN}"
-        },
-        {
-          "Type": "RedirectUri",
-          "Value": "https://vm-console-api.${DOMAIN}/swagger/o2c.html"
-        },
-        {
-          "Type": "PostLogoutRedirectUri",
-          "Value": "https://vm-console-api.${DOMAIN}/swagger"
-        }
-      ]
-    },
-    {
       "Name": "vm-console-ui-dev",
       "DisplayName": "VM Console UI Development",
       "Enabled": true,
-      "SeedFlags": "AllowAccessTokensViaBrowser, Published",
-      "SeedGrant": "implicit",
+      "SeedFlags": "AllowAccessTokensViaBrowser, Published, RequirePkce",
+      "SeedGrant": "authorization_code",
       "SeedScopes": "openid profile email player-api vm-api vm-console-api",
       "Urls": [
         {
@@ -380,43 +358,37 @@
       "Name": "alloy-api",
       "DisplayName": "Alloy Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     },
     {
       "Name": "caster-api",
       "DisplayName": "Caster Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     },
     {
       "Name": "player-api",
       "DisplayName": "Player Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     },
     {
       "Name": "steamfitter-api",
       "DisplayName": "Steamfitter Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     },
     {
       "Name": "vm-api",
       "DisplayName": "VM Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     },
     {
       "Name": "vm-console-api",
       "DisplayName": "VM Console Api",
       "Enabled": true,
-      "Default": true,
-      "Scopes": []
+      "Default": true
     }
   ]
 }

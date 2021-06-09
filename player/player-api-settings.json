@@ -16,7 +16,8 @@
   },
   "Authorization": {
     "Authority": "https://id.${DOMAIN}",
-    "AuthorizationUrl": "https://id.${DOMAIN}",
+    "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
     "AuthorizationScope": "player-api",
     "ClientId": "player-api-dev",
     "ClientName": "Player API",
