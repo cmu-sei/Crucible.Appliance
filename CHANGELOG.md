@@ -1,3 +1,14 @@
+## 3.0.0 - Breaking Changes
+
+- Breaking Changes exist in this version of the appliance. A fresh install is highly recomended.
+- Changed versioning to coincide with major version of crucible apps
+- BREAKING: Changed all apps to use 'authorization_code' flow
+- BREAKING: Fixed client URLs on all identity clients
+- Upgraded to the latest versions of Crucible applications
+- Fixed an error where SSL certificate was not generated on a fresh install.
+- BREAKING: UI Crucible apps now use an unprivledged nginx container, traefik configuration updated to use port 8080
+- `prep.sh` now grants `$USER` read/write permissions to the `/deploy` folder.
+
 ## 0.0.5
 
 - Updated to the latest versions of Crucible applications.

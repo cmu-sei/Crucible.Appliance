@@ -10,6 +10,7 @@
   "Authorization": {
     "Authority": "https://id.${DOMAIN}",
     "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
     "AuthorizationScope": "vm-api player-api",
     "ClientId": "vm-api-dev",
     "ClientName": "VM API",

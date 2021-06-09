@@ -35,7 +35,7 @@ services:
       labels:
         - 'traefik.enable=true'
         - 'traefik.backend=player-ui'
-        - 'traefik.port=80'
+        - 'traefik.port=8080'
         - 'traefik.docker.network=traefik-net'
         - 'traefik.frontend.rule=Host:player.${DOMAIN}'
         - 'traefik.frontend.entrypoints=http,https'

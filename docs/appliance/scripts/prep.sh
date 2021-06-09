@@ -13,7 +13,7 @@ mkdir -pv "${DEPLOY}"
 # Set the environment variables
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 # Update Code (Dev)
-echo "Appliance Mode set to ${APPLIANCE_DEV}"
+echo "Appliance Dev Mode set to ${APPLIANCE_DEV}"
 if [[ ${APPLIANCE_DEV} == "true" && -d /home/crucible/crucible-deploy ]]; then
   echo "Appliance in DEV MODE copying files..."
   cp -r "/home/crucible/crucible-deploy/." "${DEPLOY}"
@@ -37,6 +37,9 @@ source ${DEPLOY}/${SCRIPTS_PATH}/replace.sh staging.anvil.cert.org ${DOMAIN}
 source ${DEPLOY}/${SCRIPTS_PATH}/replace.sh anvil.cert.org ${DOMAIN}
 source ${DEPLOY}/${SCRIPTS_PATH}/replace.sh foundry.local ${DOMAIN}
 # Change perminssions for deploy folder
+groupadd deploy
+usermod -aG deploy ${USER}
+chown -R root:deploy ${DEPLOY}
 chmod -R a+rw ${DEPLOY}
 # Ensure scripts are exacutable
 chmod -R +x "${DEPLOY}/${SCRIPTS_PATH}"
