@@ -7,7 +7,7 @@
     "client_id": "steamfitter-ui-dev",
     "redirect_uri": "https://steamfitter.${DOMAIN}/auth-callback/",
     "post_logout_redirect_uri": "https://steamfitter.${DOMAIN}",
-    "response_type": "id_token token",
+    "response_type": "code",
     "scope": "openid profile vm-api player-api steamfitter-api",
     "automaticSilentRenew": true,
     "silent_redirect_uri": "https://steamfitter.${DOMAIN}/auth-callback-silent/"

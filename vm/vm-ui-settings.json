@@ -9,7 +9,7 @@
     "client_id": "vm-ui-dev",
     "redirect_uri": "https://vm.${DOMAIN}/auth-callback/",
     "post_logout_redirect_uri": "https://vm.${DOMAIN}",
-    "response_type": "id_token token",
+    "response_type": "code",
     "scope": "openid profile email vm-api player-api",
     "automaticSilentRenew": true,
     "silent_redirect_uri": "https://vm.${DOMAIN}/auth-callback-silent/"

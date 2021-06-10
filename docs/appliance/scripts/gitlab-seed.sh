@@ -13,7 +13,7 @@ MAX_TIMEOUT=360
 source ${DEPLOY}/${SCRIPTS_PATH}/vars.sh
 
 # Update Code (Dev)
-echo "Appliance Mode set to ${APPLIANCE_DEV}"
+echo "Appliance Dev Mode set to ${APPLIANCE_DEV}"
 if [[ ${APPLIANCE_DEV} == "true" && -d /home/crucible/crucible-deploy ]]; then
   echo "Appliance in DEV MODE copying environment file"
   cp -r "/home/crucible/crucible-deploy/${VARS_PATH}" "${DEPLOY}/${VARS_PATH}"

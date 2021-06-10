@@ -40,6 +40,7 @@
   "Authorization": {
     "Authority": "https://id.${DOMAIN}",
     "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
     "AuthorizationScope": "alloy-api player-api caster-api steamfitter-api vm-api",
     "ClientId": "alloy-api-dev",
     "ClientName": "Alloy API",

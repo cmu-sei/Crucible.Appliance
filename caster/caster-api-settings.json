@@ -5,6 +5,7 @@
   "Authorization": {
     "Authority": "https://id.${DOMAIN}",
     "AuthorizationUrl": "https://id.${DOMAIN}/connect/authorize",
+    "TokenUrl": "https://id.${DOMAIN}/connect/token",
     "AuthorizationScope": "caster-api",
     "ClientId": "caster-api-dev",
     "ClientName": "Caster API",
